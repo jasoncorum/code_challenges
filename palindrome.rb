@@ -1,16 +1,16 @@
-puts 'Enter a string:'
-str = gets.strip.downcase
-p = []
+puts "Please enter a string:"
+str = gets.strip
 
-str.size.downto(0) do |x|
-	0.upto(str.size - x) do |y|
-		s = str[y,x]
-		if s == s.reverse && if s.reverse.size >= 3
-			p << s
-		end
+palindromes = []
+
+0.upto(str.size) do |x|
+	str.size.downto(0) do |y|
+		s = str[x,y] 
+		if s == s.reverse && s.size >= 3
+			palindromes << s
 		end
 	end
 end
 
-p = p.sort_by{ |z| z.length }.reverse
-puts p[0]
+palindromes = palindromes.sort_by{ |z| z.length }.reverse
+puts palindromes[0]

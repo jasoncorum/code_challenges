@@ -15,8 +15,6 @@ def fizzbuzz(number)
 	: number
 
 end
-
-# hash[:category].include?("cats") ? hash[:category].include?("bacon") ? hash[:upvotes] * 40 : hash[:upvotes] * 8 : hash[:category].include?("food") ? hash[:upvotes] * 3 : hash[:upvotes] * 1
  
 1.upto(100) do |num|
   puts fizzbuzz(num)
@@ -34,27 +32,4 @@ end
 # assert fizzbuzz(5) == 'buzz'
 # assert fizzbuzz(9) == 'fizz'
 # assert fizzbuzz(15) == 'fizzbuzz'
-
-
-
-
-
-
-
-# count = 0
-
-# 1.upto(100) do |num|
-	
-# 	count += 1
-
-# 	if num % 3 == 0 && num % 5 == 0
-# 		puts "fizzbuzz"
-# 	elsif num % 3 == 0
-# 		puts "fizz"
-# 	elsif num % 5 == 0
-# 		puts "buzz"
-# 	else
-# 		puts num
-# 	end
-# end
 
