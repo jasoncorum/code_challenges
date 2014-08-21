@@ -1,4 +1,6 @@
 
+# This finds defined dirty words in a string.
+
 puts "Please post a string and we'll check for dirty words."
 string = gets.strip
 

@@ -1,3 +1,6 @@
+
+# This is the beginning of a failed attempt to score bowling in Ruby.
+
 puts "Please enter your score:"
 
 # 3.down_to(1) do |x|

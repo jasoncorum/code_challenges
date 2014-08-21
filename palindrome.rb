@@ -1,3 +1,6 @@
+
+# This takes a string and finds the longest palindrome.
+
 puts "Please enter a string:"
 str = gets.strip
 

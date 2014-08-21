@@ -1,3 +1,6 @@
+
+# This figures out the number of U.S. coins needed to provide change.
+
 puts "Please enter the amount of change needed. If over 1.00 please enter the total amount in cents (ie. $1.05 = 105):"
 
 change = gets.strip.to_i
