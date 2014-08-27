@@ -11,9 +11,15 @@ function Vector(x,y) {
   this.y = y;
 }
 
-Vector.plus = function(n1,n2) {
-  this.x = this.x + n1;
-  this.y = this.y + n2;
-  return this.x
-  return this.y
+Vector.prototype.plus = function (v2) {
+  return new Vector(this.x + v2.x, this.y + v2.y);
 };
+
+Vector.prototype.minus = function (v2) {
+  return new Vector(this.x - v2.x, this.y - v2.y);
+};
+
+Object.defineProperty(Vector.prototype, "length", {
+  get: function(_) { return Math.sqrt((this.x * this.x) + (this.y * this.y)); }
+});
+
