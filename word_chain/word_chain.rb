@@ -14,14 +14,13 @@ module Levenshtein
  
 end
 
-# dictionary = File.readlines('dictionary.txt')
-
 dictionary = []
 File.read("dictionary.txt").each_line do |line|
   dictionary << line.chop
 end
 
 leven = []
+leven_ones = []
 
 puts "Please enter your first word:"
 a = gets.strip
@@ -32,7 +31,6 @@ b = gets.strip
 
 
 dist = Levenshtein.distance(a,b)
-puts "Levenshtein Distance: #{dist}"
 
 0.upto(dictionary.length - 1) do |x|
 	hash = {}
@@ -43,4 +41,8 @@ puts "Levenshtein Distance: #{dist}"
 	end
 end
 
-puts leven
+leven.each do |x|
+  leven_ones << x if x[:dist] == 1
+end
+
+puts leven_ones
