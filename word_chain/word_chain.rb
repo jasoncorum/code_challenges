@@ -20,7 +20,10 @@ File.read("dictionary.txt").each_line do |line|
 end
 
 leven = []
-leven_ones = []
+leven_final = []
+leven_first = leven_first
+leven_last = leven_last
+leven_other = []
 
 puts "Please enter your first word:"
 a = gets.strip
@@ -29,26 +32,43 @@ a = gets.strip
 puts "Please enter your second word:"
 b = gets.strip
 
-
 dist = Levenshtein.distance(a,b)
+puts "Levenshtein Distance #{dist}"
 
 0.upto(dictionary.length - 1) do |x|
-	hash_a = {}
-  hash_b = {}
-	if Levenshtein.distance(a, dictionary[x]) <= dist
-		hash_a[:dist] = Levenshtein.distance(a, dictionary[x])
-		hash_a[:word] = dictionary[x]
-    hash_a[:a_or_b] = "a"
-		leven << hash_a
+	hash = {}
+	if Levenshtein.distance(a, dictionary[x]) <= dist && Levenshtein.distance(b, dictionary[x]) <= dist
+		hash[:dist_a] = Levenshtein.distance(a, dictionary[x])
+    hash[:dist_b] = Levenshtein.distance(b, dictionary[x])
+    hash[:word] = dictionary[x]
+		leven << hash
   end
-    if Levenshtein.distance(b, dictionary[x]) <= dist
-    hash_b[:dist] = Levenshtein.distance(b, dictionary[x])
-    hash_b[:word] = dictionary[x]
-    hash_b[:a_or_b] = "b"
-    leven << hash_b
-	end
 end
 
-leven = leven.group_by { |x| x[:word] }.values.select { |y| y.size > 1 }.flatten
 
-puts leven
+# 0.upto(leven.length - 1) do |x|
+#   if leven[x][:dist_a] == 0
+#     leven_first = leven[x]
+#   end
+#   if leven[x][:dist_b] == 0
+#     leven_last = leven[x]
+#   end
+# end
+
+
+start = 0
+d = dist
+
+while start <= dist
+  0.upto(leven.length - 1) do |x|
+    if leven[x][:dist_a] == (start) && leven[x][:dist_b] == (d)
+      leven_other << leven[x]
+    end
+  end
+  start += 1
+  d -= 1
+end
+
+# puts leven_first
+# puts leven_last
+puts leven_other
