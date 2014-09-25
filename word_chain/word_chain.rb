@@ -33,16 +33,22 @@ b = gets.strip
 dist = Levenshtein.distance(a,b)
 
 0.upto(dictionary.length - 1) do |x|
-	hash = {}
+	hash_a = {}
+  hash_b = {}
 	if Levenshtein.distance(a, dictionary[x]) <= dist
-		hash[:dist] = Levenshtein.distance(a, dictionary[x])
-		hash[:word] = dictionary[x]
-		leven << hash
+		hash_a[:dist] = Levenshtein.distance(a, dictionary[x])
+		hash_a[:word] = dictionary[x]
+    hash_a[:a_or_b] = "a"
+		leven << hash_a
+  end
+    if Levenshtein.distance(b, dictionary[x]) <= dist
+    hash_b[:dist] = Levenshtein.distance(b, dictionary[x])
+    hash_b[:word] = dictionary[x]
+    hash_b[:a_or_b] = "b"
+    leven << hash_b
 	end
 end
 
-leven.each do |x|
-  leven_ones << x if x[:dist] == 1
-end
+leven = leven.group_by { |x| x[:word] }.values.select { |y| y.size > 1 }.flatten
 
-puts leven_ones
+puts leven
