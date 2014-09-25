@@ -21,9 +21,6 @@ end
 
 leven = []
 leven_final = []
-leven_first = leven_first
-leven_last = leven_last
-leven_other = []
 
 puts "Please enter your first word:"
 a = gets.strip
@@ -45,30 +42,17 @@ puts "Levenshtein Distance #{dist}"
   end
 end
 
-
-# 0.upto(leven.length - 1) do |x|
-#   if leven[x][:dist_a] == 0
-#     leven_first = leven[x]
-#   end
-#   if leven[x][:dist_b] == 0
-#     leven_last = leven[x]
-#   end
-# end
-
-
 start = 0
 d = dist
 
 while start <= dist
   0.upto(leven.length - 1) do |x|
     if leven[x][:dist_a] == (start) && leven[x][:dist_b] == (d)
-      leven_other << leven[x]
+      leven_final << leven[x]
     end
   end
   start += 1
   d -= 1
 end
 
-# puts leven_first
-# puts leven_last
-puts leven_other
+puts leven_final
