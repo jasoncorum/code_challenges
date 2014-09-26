@@ -20,7 +20,9 @@ File.read("dictionary.txt").each_line do |line|
 end
 
 leven = []
-leven_final = []
+leven_one = []
+leven_two = []
+leven_delete = []
 
 puts "Please enter your first word:"
 a = gets.strip
@@ -48,11 +50,19 @@ d = dist
 while start <= dist
   0.upto(leven.length - 1) do |x|
     if leven[x][:dist_a] == (start) && leven[x][:dist_b] == (d)
-      leven_final << leven[x]
+      leven_one << leven[x]
     end
   end
   start += 1
   d -= 1
 end
 
-puts leven_final
+puts leven_one
+
+puts "======================="
+
+leven_one.each_cons(2) {|a| leven_two << a}
+
+puts leven_two[3]
+
+# Need to sort out words that are more than one step away from the preceding word.
