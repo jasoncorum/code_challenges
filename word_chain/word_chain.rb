@@ -1,21 +1,26 @@
 require_relative 'lib/levenshtein'
 
+# Loads the dictionary .txt file
 dictionary = []
 File.read("dictionary.txt").each_line do |line|
   dictionary << line.chop
 end
 
-leven = []
 leven_one = []
 leven_path = []
 
+# User defines start and end words.
 puts "Please enter your first word:"
 a = gets.strip
 
 puts "Please enter your second word:"
 b = gets.strip
 
+puts "Calculating the word chain..."
+
+# Calculates Levenshtein distance between the start and end words and finds all words that 
 dist = Levenshtein.distance(a,b)
+leven = []
 
 0.upto(dictionary.length - 1) do |x|
 	hash = {}
