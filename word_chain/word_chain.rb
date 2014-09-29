@@ -1,6 +1,6 @@
 require_relative 'lib/levenshtein'
 
-# Loads the dictionary .txt file
+# Loads the dictionary .txt file.
 dictionary = []
 File.read("dictionary.txt").each_line do |line|
   dictionary << line.chop
@@ -55,23 +55,29 @@ test_2 = 1
 while count < Levenshtein.distance(a,b)
 
   if leven_one.size < Levenshtein.distance(a,b)
-    puts "No word chain exists for:"
     count = Levenshtein.distance(a,b)
+
   elsif leven_one[test + 2].nil? == true && Levenshtein.distance(leven_one[test], leven_one[test + 1]) == 1
+    
     leven_path << leven_one[test]
       test += 1
       test_2 += 1
       count += 1
+
   elsif Levenshtein.distance(leven_one[test], leven_one[test + 1]) == 1 && Levenshtein.distance(leven_one[test + 1], leven_one[test + 2]) == 1
     leven_path << leven_one[test]
+      
       test += 1
       test_2 += 1
       count += 1
+  
   elsif Levenshtein.distance(leven_one[test], leven_one[test + 1]) == 1 && Levenshtein.distance(leven_one[test + 1], leven_one[test + 3]) == 1
     leven_path << leven_one[test]
+      
       test += 1
       test_2 += 1
       count += 1
+
   else
     leven_one.delete_at(test_2)
       test = test
@@ -79,7 +85,13 @@ while count < Levenshtein.distance(a,b)
   end
 end
 
-# Puts the word chain
+# Puts the word chain.
 leven_path << a
 leven_path << b
-puts leven_path.uniq
+leven_path = leven_path.uniq
+
+if leven_path.size < Levenshtein.distance(a,b)
+  puts"No word chain could be found."
+else
+  puts leven_path
+end
