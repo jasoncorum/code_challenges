@@ -18,7 +18,7 @@ b = gets.strip
 
 puts "Calculating the word chain..."
 
-# Calculates Levenshtein distance between the start and end words and finds all words that 
+# Calculates Levenshtein distance between the start and end words and finds all words that have distances between the start or end words and the distance between start and end words.
 dist = Levenshtein.distance(a,b)
 leven = []
 
@@ -32,6 +32,7 @@ leven = []
   end
 end
 
+# Finds all dictionary words that match the Levenshtein distance steps between the start and end words.
 start = 0
 d = dist
 
@@ -46,6 +47,7 @@ while start <= dist
   d -= 1
 end
 
+# Sorts through the dictionary words and matches them as the next step in the chain.
 count = 0
 test = 0
 test_2 = 1
@@ -65,18 +67,19 @@ while count < Levenshtein.distance(a,b)
       test += 1
       test_2 += 1
       count += 1
- elsif Levenshtein.distance(leven_one[test], leven_one[test + 1]) == 1 && Levenshtein.distance(leven_one[test + 1], leven_one[test + 3]) == 1
+  elsif Levenshtein.distance(leven_one[test], leven_one[test + 1]) == 1 && Levenshtein.distance(leven_one[test + 1], leven_one[test + 3]) == 1
     leven_path << leven_one[test]
       test += 1
       test_2 += 1
       count += 1
   else
     leven_one.delete_at(test_2)
-    test = test
-    test_2 = test_2
+      test = test
+      test_2 = test_2
   end
 end
 
+# Puts the word chain
 leven_path << a
 leven_path << b
 puts leven_path.uniq
