@@ -1,18 +1,4 @@
-module Levenshtein
- 
-  def self.distance(a, b)
-    a, b = a.downcase, b.downcase
-    costs = Array(0..b.length) # i == 0
-    (1..a.length).each do |i|
-      costs[0], nw = i, i - 1  # j == 0; nw is lev(i-1, j)
-      (1..b.length).each do |j|
-        costs[j], nw = [costs[j] + 1, costs[j-1] + 1, a[i-1] == b[j-1] ? nw : nw + 1].min, costs[j]
-      end
-    end
-    costs[b.length]
-  end
- 
-end
+require_relative 'lib/levenshtein'
 
 dictionary = []
 File.read("dictionary.txt").each_line do |line|
@@ -21,18 +7,15 @@ end
 
 leven = []
 leven_one = []
-leven_two = []
-leven_delete = []
+leven_path = []
 
 puts "Please enter your first word:"
 a = gets.strip
-
 
 puts "Please enter your second word:"
 b = gets.strip
 
 dist = Levenshtein.distance(a,b)
-puts "Levenshtein Distance #{dist}"
 
 0.upto(dictionary.length - 1) do |x|
 	hash = {}
@@ -50,19 +33,45 @@ d = dist
 while start <= dist
   0.upto(leven.length - 1) do |x|
     if leven[x][:dist_a] == (start) && leven[x][:dist_b] == (d)
-      leven_one << leven[x]
+      y = leven[x][:word]
+      leven_one << y
     end
   end
   start += 1
   d -= 1
 end
 
-puts leven_one
+count = 0
+test = 0
+test_2 = 1
 
-puts "======================="
+while count < Levenshtein.distance(a,b)
 
-leven_one.each_cons(2) {|a| leven_two << a}
+  if leven_one.size < Levenshtein.distance(a,b)
+    puts "No word chain exists for:"
+    count = Levenshtein.distance(a,b)
+  elsif leven_one[test + 2].nil? == true && Levenshtein.distance(leven_one[test], leven_one[test + 1]) == 1
+    leven_path << leven_one[test]
+      test += 1
+      test_2 += 1
+      count += 1
+  elsif Levenshtein.distance(leven_one[test], leven_one[test + 1]) == 1 && Levenshtein.distance(leven_one[test + 1], leven_one[test + 2]) == 1
+    leven_path << leven_one[test]
+      test += 1
+      test_2 += 1
+      count += 1
+ elsif Levenshtein.distance(leven_one[test], leven_one[test + 1]) == 1 && Levenshtein.distance(leven_one[test + 1], leven_one[test + 3]) == 1
+    leven_path << leven_one[test]
+      test += 1
+      test_2 += 1
+      count += 1
+  else
+    leven_one.delete_at(test_2)
+    test = test
+    test_2 = test_2
+  end
+end
 
-puts leven_two[3]
-
-# Need to sort out words that are more than one step away from the preceding word.
+leven_path << a
+leven_path << b
+puts leven_path.uniq
