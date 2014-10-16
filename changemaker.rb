@@ -9,12 +9,10 @@ money = { quarter: 25, dime: 10, nickel: 5 }
 coins = {}
 
 coins[:quarters] = change / money[:quarter]
-change = change % money[:quarter]
-
-coins[:dimes] = change / money[:dime]
 change = change % money[:dime]
-
+coins[:dimes] = change / money[:dime]
+change % money[:dime]
 coins[:nickels] = change / money[:nickel]
-coins[:pennies] = change % money[:nickel] 
+coins[:pennies] = change % money[:nickel]
 
 puts coins

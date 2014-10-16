@@ -4,4 +4,8 @@
 def fibonacci(n)
   n <= 1 ? n : n = fibonacci( n - 1 ) + fibonacci( n - 2 )
 end
-puts fibonacci(4)
+
+variables = [1, 2, 3, 4, 5, 6, 7]
+variables.each do |x|
+	puts fibonacci(x)
+end
